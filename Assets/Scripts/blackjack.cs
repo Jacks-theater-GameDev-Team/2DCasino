@@ -21,7 +21,7 @@ public class blackjack : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
                     beingTouched = true;
             print("Being touched");

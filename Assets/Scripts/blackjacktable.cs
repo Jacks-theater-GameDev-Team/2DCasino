@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class blackjack : MonoBehaviour
 {
@@ -23,12 +24,11 @@ public class blackjack : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-                    beingTouched = true;
-            print("Being touched");
         if (collision.gameObject.tag == "Player")
         {
             beingTouched = true;
             print("Player is touching blackjack");
+            SceneManager.LoadScene("Blackjack");
         }
     }
 }

@@ -890,7 +890,7 @@ TextureImporter:
       name: RQ
       rect:
         serializedVersion: 2
-        x: 198
+        x: 197
         y: 48
         width: 18
         height: 22
@@ -1160,7 +1160,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JQ
+      name: HQ
       rect:
         serializedVersion: 2
         x: 198
@@ -1315,7 +1315,7 @@ TextureImporter:
         width: 18
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1353,7 +1353,7 @@ TextureImporter:
       HA: -1124757580
       HJ: -1331067422
       HK: -27881024
-      JQ: 2078116020
+      HQ: 2078116020
       JR: 1291307659
       JZ: -1179265368
       K10: -719673890

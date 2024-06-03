@@ -11,15 +11,24 @@ public class BlackjackController : MonoBehaviour
     public GameObject dealerCard2;
     public GameObject playerCard1;
     public GameObject playerCard2;
-    public TextMeshProUGUI dealerScore;
-    public TextMeshProUGUI playerScore;
+    private TextMeshProUGUI dealerScore;
+    private TextMeshProUGUI playerScore;
 
-    // private string[4][13] playingCards = new string[4][13];
-    private string[] cardsInPlay;
+    string[][] playingCards = new string[][]
+    {
+    new string[] { "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "HJ", "HQ", "HK", "HA" },
+    new string[] { "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "RJ", "RQ", "RK", "RA" },
+    new string[] { "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "SJ", "SQ", "SK", "SA" },
+    new string[] { "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9", "K10", "KJ", "KQ", "KK", "KA" }
+    };
+    private string[] dealerCards;
+    private string[] playerCards;
+
 
     private GameState currentState;
 
-
+    public GameObject[] buttons;
+    public GameObject startButton;
 
     private enum GameState
     {
@@ -35,20 +44,16 @@ public class BlackjackController : MonoBehaviour
 
     void Start()
     {
-        InitCards();
-        currentState = GameState.Start;
+        currentState = GameState.Wait;
         dealerCard1 = GameObject.Find("WTD1C");
         dealerCard2 = GameObject.Find("WTD2C");
         playerCard1 = GameObject.Find("WTP1C");
         playerCard2 = GameObject.Find("WTP2C");
+        buttons = GameObject.FindGameObjectsWithTag("bjAction");
+        startButton = GameObject.FindGameObjectsWithTag("bjStart");
+
     }
-    void InitCards()
-    {
-        // playingCards[0] = { "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "HJ", "HQ", "HK", "HA"};
-        // playingCards[1] = { "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "RJ", "RQ", "RK", "RA"};
-        // playingCards[2] = { "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "SJ", "SQ", "SK", "SA"};
-        // playingCards[3] = { "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9", "K10", "KJ", "KQ", "KK", "KA"};
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -58,53 +63,81 @@ public class BlackjackController : MonoBehaviour
 
     }
 
-    // Sprite dealCard(GameObject card, string cardName)
-    // {
-    //     card.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/" + cardName);
-    // }
+    string dealCard(GameObject card, string cardName)
+    {
+        card.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Cards/" + cardName);
+        return cardName;
+    }
 
-    // string getRandomCard()
-    // {
-    //     int suit = Random.Range(0, 4);
-    //     int rank = Random.Range(0, 13);
-    //     string card = playingCards[suit][rank];
-    //     return card;
-    // }
+    string getRandomCard()
+    {
+        int suit = Random.Range(0, 4);
+        int rank = Random.Range(0, 13);
+        string card = playingCards[suit][rank];
+        return card;
+    }
 
-    // string dealRandomCard()
-    // {
-    //     string card = getRandomCard();
-    //     while (cardsInPlay.Contains(card))
-    //     {
-    //         card = dealRandomCard();
-    //     }
-    //     cardsInPlay.Add(card);
-    //     return card;
-    // }
+    string dealRandomCard()
+    {
+
+        string card = getRandomCard();
+        while (dealerCards.Contains(card) || playerCards.Contains(card) || cardsInPlay.Count < 51)
+        {
+            card = dealRandomCard();
+        }
+        cardsInPlay.Add(card);
+        return card;
+    }
+
+
+
+    int getCardValue(string card)
+    {
+        string rank = card.Substring(1);
+        if (rank == "A")
+        {
+            return 11;
+        }
+        else if (rank == "K" || rank == "Q" || rank == "J")
+        {
+            return 10;
+        }
+        else
+        {
+            return int.Parse(rank);
+        }
+    }
+
+
     void runStateMachine()
     {
         switch (currentState)
         {
             case GameState.Start:
 
-                // dealCard(dealerCard1, dealRandomCard());
-                // dealCard(playerCard1, dealRandomCard());
-                // dealCard(playerCard2, dealRandomCard());
-
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-
-                }
-
+                dealerCards[0] = dealCard(dealerCard1, dealRandomCard());
+                playerCards[0] = dealCard(playerCard1, dealRandomCard());
+                null = dealCard(dealerCard2, "B1");
+                dealerCards[1] = dealRandomCard();
+                playerCards[1] =dealCard(playerCard2, dealRandomCard());
                 currentState = GameState.PlayerTurn;
                 break;
 
             case GameState.PlayerTurn:
-
-                currentState = GameState.DealerTurn;
+                for (int i = 0; i < buttons.Length; i++)
+                {
+                    buttons[i].SetActive(true);
+                }
+                // currentState = GameState.DealerTurn;
                 break;
 
             case GameState.DealerTurn:
+                for (int i = 0; i < buttons.Length; i++)
+                {
+                    buttons[i].SetActive(false);
+                }
+
+                dealCard(dealerCard2, dealerCards[2]);
 
                 currentState = GameState.End;
                 break;
@@ -121,4 +154,43 @@ public class BlackjackController : MonoBehaviour
                 break;
         }
     }
+
+
+
+    public void Hit()
+    {
+        if (currentState == GameState.PlayerTurn)
+        {
+            dealCard(playerCard1, dealRandomCard());
+            if (getCardValue(playerCard1) > 21)
+            {
+                currentState = GameState.End;
+            }
+        }
+
+    }
+
+    public void Stand()
+    {
+        if (currentState == GameState.PlayerTurn)
+        {
+            currentState = GameState.DealerTurn;
+        }
+    }
+
+    public void start()
+    {
+        if (currentState == GameState.Wait)
+        {
+            currentState = GameState.Start;
+        }
+    }
+
+
+    public void spawnCard()
+    {
+        GameObject card = Instantiate(Resources.Load<GameObject>("Prefabs/Card"));
+        card.transform.position = new Vector3(0, 0, 0);
+    }
+
 }

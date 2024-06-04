@@ -7,22 +7,24 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private Sprite[] spriteArray;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
 
     [SerializeField] private float horizontal;
     [SerializeField] private float vertical;
+
+    [SerializeField] private float runSpeed = 2f;
 
     [SerializeField] private bool roll;
     [SerializeField] private bool rollCooldown;
     [SerializeField] private float rollSpeed = 2f;
     [SerializeField] private float rollSlow = 0.75f;
 
-
-    [SerializeField] public float runSpeed = 2f;
-
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+
         roll = false;
         rollCooldown = false;
     }
@@ -39,6 +41,10 @@ public class PlayerMovement : MonoBehaviour
             horizontal = Input.GetAxisRaw("Horizontal");
             vertical = Input.GetAxisRaw("Vertical");
         }
+
+        animator.SetFloat("vertical", vertical);
+        animator.SetFloat("horizontal", horizontal);
+        animator.SetBool("roll", roll);
     }
 
     private void FixedUpdate()
@@ -49,20 +55,20 @@ public class PlayerMovement : MonoBehaviour
 
             if (horizontal > 0)
             {
-                spriteRenderer.sprite = spriteArray[3];
+                spriteRenderer.sprite = spriteArray[3]; // Right
             }
             else if (horizontal < 0)
             {
-                spriteRenderer.sprite = spriteArray[2];
+                spriteRenderer.sprite = spriteArray[2]; // Left
             }
 
             if (vertical > 0)
             {
-                spriteRenderer.sprite = spriteArray[0];
+                spriteRenderer.sprite = spriteArray[0]; // Up
             }
             else if (vertical < 0)
             {
-                spriteRenderer.sprite = spriteArray[1];
+                spriteRenderer.sprite = spriteArray[1]; // Down
             }
         }
     }

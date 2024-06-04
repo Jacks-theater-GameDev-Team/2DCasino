@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Card/Card")]
 public class Card : ScriptableObject
@@ -35,7 +36,7 @@ public class Card : ScriptableObject
         }
         else
         {
-            Diagnostic.Utils.ForceCrash(ForcedCrashCategory.nullReferenceException);
+            throw new NullReferenceException("The card sprite was not found.");
         }
 
 
@@ -43,15 +44,14 @@ public class Card : ScriptableObject
 
     public void Initialize(Card card)
     {
-        this.suit = card.suit;
-        this.rank = card.rank;
+        this.cardID = card.cardID;
         this.value = card.value;
         this.cardSprite = card.cardSprite;
     }
 
     public void Print()
     {
-        Debug.Log("Suit: " + suit + " Rank: " + rank + " Value: " + value);
+        Debug.Log("cardID: " + cardID + " Value: " + value);
     }
 
 }

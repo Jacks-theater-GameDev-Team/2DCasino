@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("space") && roll == false && rollCooldown == false)
+        if (Input.GetKeyDown("space") && roll == false && rollCooldown == false && (horizontal != 0 || vertical != 0))
         {
             roll = true;
             rolling();
@@ -81,9 +81,9 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator rollTimer()
     {
         rollCooldown = true;
-        body.velocity = new Vector2(horizontal * runSpeed * rollSpeed, vertical * runSpeed * rollSpeed);
+        body.velocity = new Vector2(horizontal * runSpeed * rollSpeed, vertical * runSpeed * rollSpeed * 0.8f);
         yield return new WaitForSeconds(.2f);
-        body.velocity = new Vector2(horizontal * runSpeed * rollSlow, vertical * runSpeed * rollSlow);
+        body.velocity = new Vector2(horizontal * runSpeed * rollSlow, vertical * runSpeed * rollSlow * 0.8f);
         yield return new WaitForSeconds(1f);
         roll = false;
         yield return rollCooldown = false;

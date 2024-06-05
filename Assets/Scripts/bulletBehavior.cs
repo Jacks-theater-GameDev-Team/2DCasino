@@ -27,7 +27,7 @@ public class bulletBehavior : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             var enemyBehavior = collision.gameObject.GetComponent<EnemyBehavior>();
             enemyBehavior.takeDamage(damage);

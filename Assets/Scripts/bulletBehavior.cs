@@ -4,31 +4,38 @@ using UnityEngine;
 
 public class bulletBehavior : MonoBehaviour
 {
-    public int damage;
-    public float bulletSpeed;
+    [SerializeField] private int damage;
+    [SerializeField] private float speed;
+    [SerializeField] private float size;
 
     // Start is called before the first frame update
     void Awake()
     {
-        //damage = int.Parse(gameObject.name); - This doesn't work, need to find another way to get Prefab name to Int
-        if (bulletSpeed == 0)
+        if (speed == 0)
         {
-            bulletSpeed = 2f;
+            speed = 2f;
         }
 
         var player = GameObject.FindGameObjectWithTag("Player");
         Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+
+        GameObject[] otherBullets = GameObject.FindGameObjectsWithTag("Bullet");
+        foreach (var otherBullet in otherBullets)
+        {
+            Physics2D.IgnoreCollision(otherBullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        }
     }
 
     void Update()
     {
-        transform.position -= transform.right * bulletSpeed * Time.deltaTime;
+        transform.position -= transform.right * speed * Time.deltaTime;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
+                    int.TryParse(gameObject.name.ToString(), out damage);
             var enemyBehavior = collision.gameObject.GetComponent<EnemyBehavior>();
             enemyBehavior.takeDamage(damage);
         }

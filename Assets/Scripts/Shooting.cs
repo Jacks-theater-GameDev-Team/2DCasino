@@ -31,7 +31,8 @@ public class Shooting : MonoBehaviour
 
         // if (ammo != 0) {
         print(ammoUIBehavior.damageCounter);
-        Instantiate(bullets[ammoUIBehavior.damageCounter], transform.position, rotation);
+        GameObject bullet = Instantiate(bullets[ammoUIBehavior.damageCounter], transform.position, rotation);
+        bullet.name = bullets[ammoUIBehavior.damageCounter].name;
         // } else {
         //    play empty gun sound
         // }

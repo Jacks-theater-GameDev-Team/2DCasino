@@ -31,11 +31,11 @@ public class AmmoUIBehavior : MonoBehaviour
 
             if (damageCounter < 0 || damageCounter > (damage.Length - 1))
             {
-                ammoUI.transform.position -= new Vector3(0, vertical * 1.376f, 0);
+                ammoUI.transform.localPosition -= new Vector3(0, vertical * 0.688f, 0);
                 damageCounter += Mathf.RoundToInt(vertical);
             }
 
-            ammoUI.transform.position += new Vector3 (0, vertical * 0.688f * 2, 0);
+            ammoUI.transform.localPosition += new Vector3 (0, vertical * 0.688f, 0);
             StartCoroutine(scrollCooldown());
 
             print(damage[damageCounter]);

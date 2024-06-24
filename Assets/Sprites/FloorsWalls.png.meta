@@ -2734,6 +2734,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: FloorsWalls_125
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 8
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0af9d4cf3bf981b4aa8d920678a910a8
+      internalID: 770300350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2775,6 +2796,7 @@ TextureImporter:
       FloorsWalls_122: -1210324622
       FloorsWalls_123: -779684563
       FloorsWalls_124: -2138363812
+      FloorsWalls_125: 770300350
       FloorsWalls_13: 176656945
       FloorsWalls_14: 1892088968
       FloorsWalls_15: 506460980

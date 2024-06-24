@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 73e5983dcc423a8469fe4559d5071d50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -99,6 +99,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 7
+  door: {fileID: 0}
+  playerBehavior: {fileID: 0}
+  rewards:
+  - {fileID: 8830728500033492076, guid: 5d506874d10571f44929ad5a9b413324, type: 3}
+  - {fileID: 6349516432730221974, guid: 2dc4286ed2384824ca1473db23e5f37e, type: 3}
+  - {fileID: 1514533747007407300, guid: 97326ff52e42a68468abf16de5b22a41, type: 3}
+  - {fileID: 5287071189585258768, guid: bd3a96688f2392342abc09cce6c11629, type: 3}
+  - {fileID: 7900244503916702834, guid: 8e66f64e36d67874d8a1eb9467e18e72, type: 3}
 --- !u!61 &2698050937650588879
 BoxCollider2D:
   m_ObjectHideFlags: 0

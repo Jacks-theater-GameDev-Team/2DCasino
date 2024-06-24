@@ -35,7 +35,7 @@ public class bulletBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-                    int.TryParse(gameObject.name.ToString(), out damage);
+            int.TryParse(gameObject.name.ToString(), out damage);
             var enemyBehavior = collision.gameObject.GetComponent<EnemyBehavior>();
             enemyBehavior.takeDamage(damage);
         }
